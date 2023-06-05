@@ -1,4 +1,4 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_barcode_scanner/screens/home_screen.dart';
 import 'package:flutter_barcode_scanner/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +53,15 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
 
                 singInSignUpButton(context, true, () {
+                  FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailTextController.text,
+                      password: _passwordTextController.text).then((value) {
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+                  }).onError((error, stackTrace) {
+                    print("Error ${error.toString()}");
+                  });
 
 
 
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
 
 
                 }),
